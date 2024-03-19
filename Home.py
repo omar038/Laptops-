@@ -10,7 +10,7 @@ show_pages(
         Page("Home.py", "Home", "💻"),
 
         # # 2024 Content
-        Section("DE Zoomcamp 2024", "🧙‍♂️"),
+        Section("Home", "🧙‍♂️"),
         Page("Pages/Browse_laptops.py", "Course Overview", "📚", in_section=True),
 
 

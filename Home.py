@@ -76,7 +76,7 @@ st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom 
 
 # Create a sidebar navigation
 st.sidebar.write("  ")
-st.sidebar.page_link(r'omar038/laptops-/main/Home.py',label='Browse Laptops')
+st.sidebar.page_link('omar038/laptops-/main/Pages/Browse_Laptops.py',label='Browse Laptops')
 
 
 

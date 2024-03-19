@@ -3,8 +3,8 @@ import streamlit as st
 from st_pages import Page, Section, show_pages, add_page_title, hide_pages
 import plotly.express as px
 import plotly.graph_objects as go
-st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 
+add_page_title()
 show_pages(
     [   
         Page("Home.py", "Home", "💻"),

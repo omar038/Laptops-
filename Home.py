@@ -1,12 +1,12 @@
 import pandas as pd 
-import os
+
 import streamlit as st 
 import plotly.express as px
 import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 # pandas analytics
 df = pd.read_csv('laptops.csv')
-print(os.cwd)
+
 #convert prices from rupee to Doller
 df['Price'] = df['Price'] * 0.012
 df['Price'] = df['Price'].round(decimals=0).astype(int)

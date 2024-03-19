@@ -5,14 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 add_page_title()
-show_pages(
-    [   
 
-        Page("Pages/Browse_laptops.py", "Course Overview", "📚", in_section=True)
-
-
-    ]
-)
 
 
 # pandas analytics

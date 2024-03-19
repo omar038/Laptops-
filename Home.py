@@ -7,10 +7,7 @@ st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍�
 add_page_title()
 show_pages(
     [   
-        Page("Home.py", "Home", "💻"),
 
-        # # 2024 Content
-        Section("Home", "🧙‍♂️"),
         Page("Pages/Browse_laptops.py", "Course Overview", "📚", in_section=True)
 
 

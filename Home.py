@@ -7,7 +7,7 @@ st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍�
 
 # Create a sidebar navigation
 st.sidebar.write("  ")
-st.sidebar.page_link("./Browse_Laptops.py",label='Browse Laptops')
+st.sidebar.page_link("Browse_Laptops.py",label='Browse Laptops')
 
 
 # pandas analytics

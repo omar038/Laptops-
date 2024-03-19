@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
-
+st.sidebar.page_link("Pages/Browse_Laptops")
 
 
 

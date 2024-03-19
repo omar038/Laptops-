@@ -5,8 +5,6 @@ import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 
 
-
-
 # pandas analytics
 df = pd.read_csv('laptops.csv')
 

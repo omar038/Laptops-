@@ -5,9 +5,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 
-# Create a sidebar navigation
-st.sidebar.write("  ")
-st.sidebar.page_link("Pages/Browse_Laptops.py")
 
 
 # pandas analytics

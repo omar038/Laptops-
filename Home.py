@@ -76,7 +76,7 @@ st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom 
 
 # Create a sidebar navigation
 st.sidebar.write("  ")
-st.sidebar.page_link("http://www.google.com",label='Browse Laptops')
+st.sidebar.page_link("Pages/Browse_Laptops.py",label='Browse Laptops')
 
 
 

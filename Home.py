@@ -4,6 +4,12 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
+
+# Create a sidebar navigation
+st.sidebar.write("  ")
+st.sidebar.page_link("./Browse_Laptops.py",label='Browse Laptops')
+
+
 # pandas analytics
 df = pd.read_csv('laptops.csv')
 
@@ -74,9 +80,7 @@ st.sidebar.image('img/laptop_transparent.png',width=200)
 st.sidebar.write("A collection of laptops sourced from the 'Smartprix' website.")
 st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom Filters On the Data in Browse Laptops Page.")
 
-# Create a sidebar navigation
-st.sidebar.write("  ")
-st.sidebar.page_link("./Browse_Laptops.py",label='Browse Laptops')
+
 
 
 

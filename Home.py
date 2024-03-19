@@ -74,7 +74,7 @@ st.sidebar.write("A collection of laptops sourced from the 'Smartprix' website."
 st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom Filters On the Data in Browse Laptops Page.")
 
 # Create a sidebar navigation
-st.page_link('Pages\Browse_Laptops.py',label='Browse Laptops')
+st.page_link('Pages/Browse_Laptops.py',label='Browse Laptops')
 
 
 st.write("# Overview")

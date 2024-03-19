@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 # pandas analytics
 df = pd.read_csv('laptops.csv')
-
+print(os.cwd)
 #convert prices from rupee to Doller
 df['Price'] = df['Price'] * 0.012
 df['Price'] = df['Price'].round(decimals=0).astype(int)
@@ -76,7 +76,7 @@ st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom 
 
 # Create a sidebar navigation
 st.sidebar.write("  ")
-st.sidebar.page_link('Pages/Browse_Laptops.py',label='Browse Laptops')
+st.sidebar.page_link(r'omar038/laptops-/main/Home.py',label='Browse Laptops')
 
 
 

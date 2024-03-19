@@ -1,10 +1,21 @@
 import pandas as pd 
-
 import streamlit as st 
+from st_pages import Page, Section, show_pages, add_page_title, hide_pages
 import plotly.express as px
 import plotly.graph_objects as go
 st.set_page_config(layout="wide" ,page_title='Data Overview',page_icon="🧑‍💻")
 
+show_pages(
+    [   
+        Page("Home.py", "Home", "💻"),
+
+        # # 2024 Content
+        Section("DE Zoomcamp 2024", "🧙‍♂️"),
+        Page("Pages/Browse_laptops.py", "Course Overview", "📚", in_section=True),
+
+
+    ]
+)
 
 
 # pandas analytics

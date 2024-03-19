@@ -68,9 +68,9 @@ brand_color_dict = {
 }
 
 # Add a sidebar with widgets
-
+image1 = Image.open('img\laptop_transparent.png')
 st.sidebar.title("Laptops")
-st.sidebar.image('img\laptop_transparent.png',width=200)
+st.sidebar.image(image1,width=200)
 st.sidebar.write("A collection of laptops sourced from the 'Smartprix' website.")
 st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom Filters On the Data in Browse Laptops Page.")
 

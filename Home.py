@@ -76,10 +76,7 @@ st.sidebar.write(" Here's a Dataset Overview... You Can Browse and Apply Custom 
 
 # Create a sidebar navigation
 st.sidebar.write("  ")
-path = os.path.relpath("./Pages/Browse_Laptops.py")
-if st.button("os relpath ./Pages/Browse_Laptops.py"):
-    st.switch_page(str(path))
-st.sidebar.page_link(str(path))
+st.sidebar.page_link('.\Pages\Browse_Laptops.py',label='Browse Laptops')
 
 
 

@@ -1,4 +1,4 @@
-# Laptops
+# Laptops - https://laptopsdataset.streamlit.app/
 This project leverages Streamlit, pandas, and Plotly to create an interactive dashboard for exploring a dataset of laptops. It delves into various aspects like brand distribution, pricing, ratings, touch screen availability, operating systems, and more. Users can gain insights into trends, identify top-performing brands, and compare attributes visually.
 
 Key Features:
@@ -12,13 +12,7 @@ Operating System Breakdown: Discover the prevalence of different operating syste
 Average Ratings by Chip Brand: Compare the average user ratings for devices equipped with AMD, Intel, or Apple processors.
 Average Price and Rating Per Brand: Get a visual overview of average prices and user ratings across different brands.
 Customizable Color Scheme: Enhance visual appeal with a brand-specific color mapping for charts.
-How to Run:
 
-Clone the Repository: Use git clone https://github.com/<your-username>/streamlit-laptop-analysis.git to download the project.
-Install Dependencies: Navigate to the project directory and run pip install -r requirements.txt to install required libraries.
-Run the Streamlit App: Execute streamlit run app.py (assuming your main script is named app.py) to launch the dashboard in your web browser (usually http://localhost:8501).
-Data File: Ensure the laptops.csv file is in the same directory as your Python script.
-Project Structure:
 
 app.py: Contains the core Python code for building the Streamlit dashboard.
 laptops.csv: The laptop data in CSV format.

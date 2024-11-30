@@ -1,4 +1,4 @@
-# Laptops - https://laptopsdataset.streamlit.app/
+# Laptops - https://laptopsdataset.streamlit.app
 This project leverages Streamlit, pandas, and Plotly to create an interactive dashboard for exploring a dataset of laptops. It delves into various aspects like brand distribution, pricing, ratings, touch screen availability, operating systems, and more. Users can gain insights into trends, identify top-performing brands, and compare attributes visually.
 
 Key Features:

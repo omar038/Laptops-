@@ -77,4 +77,4 @@ if query_conditions:
 else:
     filtered_df = df
 
-st.table(filtered_df.head(20))
+st.table(filtered_df.head(20),use_container_width=True)

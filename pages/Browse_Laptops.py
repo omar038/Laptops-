@@ -14,6 +14,8 @@ def load_data():
     """Load laptop data efficiently."""
     if os.path.exists('laptops.csv'):
         df = pd.read_csv('laptops.csv')
+        df['Price'] = (df['Price'] * 0.012).round().astype(int)
+        df['year_of_warranty'] = df['year_of_warranty'].replace('No information', 'No Warranty')
         return df
     else:
         st.error("Error: 'laptops.csv' file not found!")
@@ -21,51 +23,31 @@ def load_data():
 
 df = load_data()
 
-# Data preprocessing
-df['Price'] = (df['Price'] * 0.012).round().astype(int)
-df['year_of_warranty'] = df['year_of_warranty'].replace('No information', 'No Warranty')
-
 # Unique values for filtering
-filters = {
-    "OS": df["OS"].dropna().unique(),
-    "Chip": df["processor_brand"].dropna().unique(),
-    "Brand": df["brand"].dropna().unique(),
-    "Processor": df["processor_tier"].dropna().unique(),
-    "GPU Type": df["gpu_type"].dropna().unique(),
-    "RAM": df["ram_memory"].dropna().unique(),
-    "Primary Storage": df["primary_storage_type"].dropna().unique(),
-    "Secondary Storage": df["secondary_storage_type"].dropna().unique(),
-    "Warranty": ["No Warranty", "1", "2", "3"]
-}
+filters = {col: df[col].dropna().astype(str).unique() for col in ["OS", "processor_brand", "brand", "processor_tier", "gpu_type", "ram_memory", "primary_storage_type", "secondary_storage_type"]}
+filters["Warranty"] = ["No Warranty", "1", "2", "3"]
 
 st.write("# Available Laptops")
 
 # Sidebar Filters
-user_filters = {
-    "OS": st.sidebar.selectbox('Select OS', filters["OS"]),
-    "Chip": st.sidebar.selectbox('Select Chip', filters["Chip"]),
-    "Brand": st.sidebar.selectbox('Select Brand', filters["Brand"]),
-    "Processor": st.sidebar.selectbox('Select Processor', filters["Processor"]),
-    "GPU Type": st.sidebar.selectbox('Select GPU Type', filters["GPU Type"]),
-    "RAM": st.sidebar.selectbox('Select RAM', filters["RAM"]),
-    "Primary Storage": st.sidebar.selectbox('Select Primary Storage', filters["Primary Storage"]),
-    "Secondary Storage": st.sidebar.selectbox('Select Secondary Storage', filters["Secondary Storage"]),
-    "Warranty": st.sidebar.selectbox('Select Warranty', filters["Warranty"]),
-    "Price": st.sidebar.slider('Max Price', 0, 5000),
-    "Rating": st.sidebar.slider('Min Rating', 0, 85),
-    "Touchscreen": st.sidebar.radio("Touch Screen", ["All", "Touchscreen", "Non-Touchscreen"])
-}
+user_filters = {key: st.sidebar.selectbox(f"Select {key}", filters[key]) for key in filters.keys()}
+user_filters["Price"] = st.sidebar.slider('Max Price', min_value=df["Price"].min(), max_value=df["Price"].max())
+user_filters["Rating"] = st.sidebar.slider('Min Rating', min_value=df["Rating"].min(), max_value=df["Rating"].max())
+user_filters["Touchscreen"] = st.sidebar.radio("Touch Screen", ["All", "Touchscreen", "Non-Touchscreen"])
 
 # Apply filters dynamically
 query_conditions = []
-for key, value in user_filters.items():
-    if value and key in df.columns:
-        query_conditions.append(f"{key} == '{value}'")
 
-if user_filters["Price"]:
-    query_conditions.append(f"Price <= {user_filters['Price']}")
-if user_filters["Rating"]:
-    query_conditions.append(f"Rating >= {user_filters['Rating']}")
+# Apply categorical filters
+for key, value in user_filters.items():
+    if key in filters and value: 
+        query_conditions.append(f"{key}.astype(str) == '{value}'")
+
+# Apply numerical filters
+query_conditions.append(f"Price <= {user_filters['Price']}")
+query_conditions.append(f"Rating >= {user_filters['Rating']}")
+
+# Apply touchscreen filter
 if user_filters["Touchscreen"] == "Touchscreen":
     query_conditions.append("is_touch_screen == True")
 elif user_filters["Touchscreen"] == "Non-Touchscreen":
@@ -77,4 +59,4 @@ if query_conditions:
 else:
     filtered_df = df
 
-st.dataframe(filtered_df.head(20),use_container_width=True)
+st.dataframe(filtered_df.head(20), use_container_width=True)

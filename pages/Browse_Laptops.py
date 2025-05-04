@@ -23,8 +23,8 @@ def load_data():
 
 df = load_data()
 
-# Unique values for filtering
-filters = {col: df[col].dropna().astype(str).unique() for col in ["OS", "processor_brand", "brand", "processor_tier", "gpu_type", "ram_memory", "primary_storage_type", "secondary_storage_type"]}
+# Unique values for filtering (ensure columns exist)
+filters = {col: df[col].dropna().unique().tolist() for col in df.columns if df[col].dtype == 'object'}
 filters["Warranty"] = ["No Warranty", "1", "2", "3"]
 
 st.write("# Available Laptops")
@@ -38,10 +38,10 @@ user_filters["Touchscreen"] = st.sidebar.radio("Touch Screen", ["All", "Touchscr
 # Apply filters dynamically
 query_conditions = []
 
-# Apply categorical filters
+# Apply categorical filters (Check if columns exist)
 for key, value in user_filters.items():
-    if key in filters and value: 
-        query_conditions.append(f"{key}.astype(str) == '{value}'")
+    if key in df.columns and value:
+        query_conditions.append(f"{key} == '{value}'")
 
 # Apply numerical filters
 query_conditions.append(f"Price <= {user_filters['Price']}")

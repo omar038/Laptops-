@@ -1,62 +1,97 @@
-import pandas as pd
-import streamlit as st
-import os
+import pandas as pd  # Import pandas for data manipulation
+import streamlit as st  # Import Streamlit for UI elements
+import plotly.express as px  # Import Plotly for interactive visualizations
+import plotly.graph_objects as go  # Import Plotly graph objects
+import os  # Import OS module for file operations
+from functools import reduce  # Import reduce for filtering conditions
 
+# Configure Streamlit page settings
 st.set_page_config(page_title='Laptops', layout="wide", page_icon='💻')
 
-# Load custom styles
-if os.path.exists("style.css"):
-    with open('style.css') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+# Apply custom styles from CSS file (if exists)
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+# Function to load laptop data
 @st.cache_data
 def load_data():
-    """Load laptop data efficiently."""
-    if os.path.exists('laptops.csv'):
-        df = pd.read_csv('laptops.csv')
-        df['Price'] = (df['Price'] * 0.012).round().astype(int)
-        df['year_of_warranty'] = df['year_of_warranty'].replace('No information', 'No Warranty')
-        return df
-    else:
-        st.error("Error: 'laptops.csv' file not found!")
-        return pd.DataFrame()
+    # Load data from CSV file
+    df = pd.read_csv('laptops.csv')
+    return df
 
 df = load_data()
 
-# Unique values for filtering (ensure columns exist)
-filters = {col: df[col].dropna().unique().tolist() for col in df.columns if df[col].dtype == 'object'}
-filters["Warranty"] = ["No Warranty", "1", "2", "3"]
+# Preprocessing Data
+df['Price'] = df['Price'] * 0.012  # Convert price to appropriate currency
+df['Price'] = df['Price'].round(decimals=0).astype(int)  # Round and convert to integer
+df['year_of_warranty'] = df['year_of_warranty'].replace('No information', 'No Warranty')  # Standardize warranty information
 
+# Extract unique values for filtering options
+brand_list = df["brand"].unique().tolist()
+ratinglist = df["Rating"].unique().tolist()
+processor_tier = df["processor_tier"].unique().tolist()
+OS_list = df["OS"].unique().tolist()
+Chip_list = df["processor_brand"].unique().tolist()
+Ram_list = df["ram_memory"].unique().tolist()
+primary_storage_list = df['primary_storage_type'].unique().tolist()
+gpu_type_list = df['gpu_type'].unique().tolist()
+
+# Display main page title
 st.write("# Available Laptops")
 
-# Sidebar Filters
-user_filters = {key: st.sidebar.selectbox(f"Select {key}", filters[key]) for key in filters.keys()}
-user_filters["Price"] = st.sidebar.slider('Max Price', min_value=df["Price"].min(), max_value=df["Price"].max())
-user_filters["Rating"] = st.sidebar.slider('Min Rating', min_value=df["Rating"].min(), max_value=df["Rating"].max())
-user_filters["Touchscreen"] = st.sidebar.radio("Touch Screen", ["All", "Touchscreen", "Non-Touchscreen"])
+# Sidebar filters for user selection
+Desired_os = st.sidebar.selectbox('What is your desired OS', OS_list, index=None)
+Chip = st.sidebar.selectbox('What Chip Do You Want', Chip_list, index=None)
+Brand = st.sidebar.selectbox('Which Brand would you like', brand_list, index=None)
+processor = st.sidebar.selectbox('Which processor you would like', processor_tier, index=None)
+gpu_type = st.sidebar.selectbox('Which GPU type you would like', gpu_type_list, index=None)
+Ram = st.sidebar.selectbox('Select your memory', Ram_list, index=None)
+Primary_storage = st.sidebar.selectbox('Select your Primary Storage', primary_storage_list, index=None)
+Secondary_storage = st.sidebar.selectbox('Select your Secondary Storage', primary_storage_list, index=None)
+years_of_warranty = st.sidebar.selectbox('Warranty', ['No Warranty', '1', '2', '3'], index=None)
+Price = st.sidebar.slider('Price', 0, 5000)  # Slider for price range
+Rating = st.sidebar.slider('Rating', 0, 85)  # Slider for rating filter
+touchscreen_filter = st.sidebar.radio("Touch Screen", ["All", "Touchscreen", "Non-Touchscreen"])  # Radio buttons for touchscreen filter
 
-# Apply filters dynamically
-query_conditions = []
+# Initialize list to store filtering conditions
+filter_conditions = []
 
-# Apply categorical filters (Check if columns exist)
-for key, value in user_filters.items():
-    if key in df.columns and value:
-        query_conditions.append(f"{key} == '{value}'")
-
-# Apply numerical filters
-query_conditions.append(f"Price <= {user_filters['Price']}")
-query_conditions.append(f"Rating >= {user_filters['Rating']}")
+# Apply filters based on user input
+if processor:
+    filter_conditions.append(df['processor_tier'] == processor)
+if Price:
+    filter_conditions.append(df['Price'] > Price)
+if Rating:
+    filter_conditions.append(df['Rating'] > Rating)
+if Brand:
+    filter_conditions.append(df['brand'] == Brand)
+if Desired_os:
+    filter_conditions.append(df['OS'] == Desired_os)
+if Chip:
+    filter_conditions.append(df['processor_brand'] == Chip)
+if Ram:
+    filter_conditions.append(df['ram_memory'] == Ram)
+if Primary_storage:
+    filter_conditions.append(df['primary_storage_type'] == Primary_storage)
+if Secondary_storage:
+    filter_conditions.append(df['secondary_storage_type'] == Secondary_storage)
+if gpu_type:
+    filter_conditions.append(df['gpu_type'] == gpu_type)
+if years_of_warranty:
+    filter_conditions.append(df['year_of_warranty'] == years_of_warranty)
 
 # Apply touchscreen filter
-if user_filters["Touchscreen"] == "Touchscreen":
-    query_conditions.append("is_touch_screen == True")
-elif user_filters["Touchscreen"] == "Non-Touchscreen":
-    query_conditions.append("is_touch_screen == False")
+elif touchscreen_filter == "Touchscreen":
+    filter_conditions.append(df['is_touch_screen'] == True)
+elif touchscreen_filter == "Non-Touchscreen":
+    filter_conditions.append(df['is_touch_screen'] == False)
 
-# Filter Data
-if query_conditions:
-    filtered_df = df.query(" & ".join(query_conditions))
+# Apply filtering if conditions exist
+if filter_conditions:
+    filtered_df = df[reduce(lambda x, y: x & y, filter_conditions)]  # Use reduce to combine conditions
+    st.dataframe(filtered_df.head(20), use_container_width=True)  # Display filtered results
 else:
-    filtered_df = df
+    filtered_df = df  # Show all data if no filters applied
+    st.dataframe(filtered_df.head(20), use_container_width=True)
 
-st.dataframe(filtered_df.head(20), use_container_width=True)
+

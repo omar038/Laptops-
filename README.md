@@ -1,25 +1,33 @@
-# Laptops - https://laptopsdataset.streamlit.app
-This project leverages Streamlit, pandas, and Plotly to create an interactive dashboard for exploring a dataset of laptops. It delves into various aspects like brand distribution, pricing, ratings, touch screen availability, operating systems, and more. Users can gain insights into trends, identify top-performing brands, and compare attributes visually.
+# Laptops Dashboard 💻
+### [👁️View the App](https://laptopsdataset.streamlit.app)
 
-Key Features:
+# ✨ Laptops Dashboard
 
-Interactive Dashboard: Streamlit facilitates a user-friendly, web-based interface for data exploration.
-Data Cleaning and Preprocessing: Essential data wrangling is performed to ensure accuracy and consistency before analysis.
-Brand Distribution: Analyze the number of laptops offered by each brand.
-Pricing Analysis: Explore the overall price range, identify the most expensive and cheapest laptops.
-Touch Screen Availability: Visualize the distribution of laptops with and without touch screens.
-Operating System Breakdown: Discover the prevalence of different operating systems (e.g., Windows, macOS, Chrome OS).
-Average Ratings by Chip Brand: Compare the average user ratings for devices equipped with AMD, Intel, or Apple processors.
-Average Price and Rating Per Brand: Get a visual overview of average prices and user ratings across different brands.
-Customizable Color Scheme: Enhance visual appeal with a brand-specific color mapping for charts.
+This project utilizes **Streamlit**, **pandas**, and **Plotly** to provide an interactive dashboard for exploring a dataset of laptops. Users can analyze brand distribution, pricing, ratings, touchscreen availability, operating systems, and more.
+## 📷 Project Preview  
+![Laptops Dashboard Home🏡](https://github.com/omar038/Laptops-/blob/main/img/Home%20Page.gif)
 
+-------------------------
 
-app.py: Contains the core Python code for building the Streamlit dashboard.
-laptops.csv: The laptop data in CSV format.
-requirements.txt: Lists the necessary Python libraries.
-style.css: Customizes the visual appearance of the dashboard (optional).
-README.md: This file (you're reading it!).
-Additional Notes:
+![Laptops Filters Page](https://github.com/omar038/Laptops-/blob/main/img/Browse%20Page.gif)
 
-Feel free to customize the dashboard further by adding more charts, filters, or interactive elements based on your specific interests.
-Consider including a link to the original data source for transparency.
+## ✨ Key Features
+
+- **Interactive Dashboard** – A user-friendly interface for seamless data exploration.
+- **Data Cleaning & Preprocessing** – Ensures data accuracy and consistency before analysis.
+- **Brand Distribution** – Analyze the number of laptops available per brand.
+- **Pricing Analysis** – Explore price ranges, from budget-friendly to high-end laptops.
+- **Touch Screen Availability** – Compare the distribution of touchscreen vs. non-touchscreen models.
+- **Operating System Breakdown** – See the prevalence of **Windows, macOS, Chrome OS**, and more.
+- **Ratings by Chip Brand** – Compare average user ratings across **AMD, Intel, Apple** processors.
+- **Brand-wise Price & Rating** – Visual overview of laptop prices and user ratings per brand.
+- **Customizable Color Scheme** – Charts enhanced with brand-specific color mapping.
+
+## 📂 Project Structure
+
+- **`app.py`** – Contains the core Python code for building the Streamlit dashboard.
+- **`laptops.csv`** – The laptop dataset in CSV format.
+- **`requirements.txt`** – Lists necessary Python libraries for deployment.
+- **`style.css`** – *(Optional)* Customizes the dashboard's visual appearance.
+- **`README.md`** – You're reading it! 📖
+
